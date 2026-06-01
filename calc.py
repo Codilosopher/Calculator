@@ -413,9 +413,23 @@ def button_mod():
 
 # function to delete last number
 def button_bacsp():
+    global f_num, math, new_number, running_expr, last_operand, last_math_op, after_equal
     current = e.get()
+    new_val = current[:-1]
     e.delete(0, END)
-    e.insert(0, current[:-1])
+    if new_val == "" or new_val == "-":
+        e.insert(0, "0")
+        # Full state reset so stale running_expr doesn't pollute next operator press
+        history_var.set("")
+        f_num = 0.0
+        math = ""
+        new_number = False
+        running_expr = ""
+        last_operand = None
+        last_math_op = ""
+        after_equal = False
+    else:
+        e.insert(0, new_val)
 
 
 
